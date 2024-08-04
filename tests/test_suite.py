@@ -60,7 +60,7 @@ class TestComputer(unittest.TestCase):
         returns a non-empty string.
         """
         self.mock_run_command.return_value = ("MockOSVersion", "")
-        os_version = self.computer.get_os_version()
+        os_version = self.computer.get_version_os()
         self.assertIsNotNone(os_version)
         self.assertNotEqual(os_version, '')
 
