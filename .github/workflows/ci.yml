@@ -40,5 +40,11 @@ jobs:
           ls -la /mnt
           ls -la /github/workspace
           ls -la
+          echo "Current Directory:"
+          pwd  # Mostra o diretório atual
+          echo "Listing Files:"
+          ls -la  # Lista todos os arquivos e diretórios
+          echo "Listing Files in /github/workspace:"
+          ls -la /github/workspace
           cd /github/workspace
           pytest test_suite.py
