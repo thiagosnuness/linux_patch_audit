@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - add-ci-cd-workflow
   pull_request:
     branches:
       - main
+      - add-ci-cd-workflow
 
 jobs:
   build-and-test:
@@ -34,7 +36,9 @@ jobs:
           ls -la /dev
           ls -la /home
           ls -la /tmp
-          ls -la /usr/x86_64-suse-linux
+          ls -la /usr/
           ls -la /mnt
+          ls -la /github/workspace
           ls -la
+          cd /github/workspace
           pytest test_suite.py
