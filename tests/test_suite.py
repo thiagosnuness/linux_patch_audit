@@ -32,30 +32,32 @@ class TestComputer(unittest.TestCase):
 
     def setUp(self):
         """Set up a Computer instance for testing."""
-        self.computer = Computer()
+        self.patcher = patch('utils.CommandExecutor.run_command')
+        self.mock_run_command = self.patcher.start()
+        self.addCleanup(self.patcher.stop)
 
-    @patch('utils.CommandExecutor.run_command',
-           return_value=("MockHostname", ""))
-    def test_hostname_not_empty(self, mock_run_command):
+        self.computer = Computer()
+    
+    def test_hostname_not_empty(self):
         """
         Test that the hostname is not empty.
 
         Ensures that the get_hostname method of the Computer class
         returns a non-empty string.
         """
+        self.mock_run_command.return_value = ("MockHostname", "")
         hostname = self.computer.get_hostname()
         self.assertIsNotNone(hostname)
         self.assertNotEqual(hostname, '')
 
-    @patch('utils.CommandExecutor.run_command',
-           return_value=("MockOSVersion", ""))
-    def test_os_version_not_empty(self, mock_run_command):
+    def test_os_version_not_empty(self):
         """
         Test that the OS version is not empty.
 
         Ensures that the get_os_version method of the Computer class
         returns a non-empty string.
         """
+        self.mock_run_command.return_value = ("MockOSVersion", "")
         os_version = self.computer.get_os_version()
         self.assertIsNotNone(os_version)
         self.assertNotEqual(os_version, '')
@@ -68,11 +70,11 @@ class TestPatch(unittest.TestCase):
         """Set up a Patch instance for testing."""
         with patch.object(Patch, 'get_patch_id', return_value='CVE-1234'), \
              patch.object(Patch, 'get_cve', return_value='CVE-1234'), \
-             patch.object(Patch, 'get_date', return_value='07-01-2024'), \
+             patch.object(Patch, 'get_date', return_value='07/01/2024'), \
              patch.object(Patch, 'get_summary',
                           return_value='Critical Security Fix'), \
              patch.object(Patch, 'calculate_deadline',
-                          return_value='07-01-2024'):
+                          return_value='07/07/2024'):
             self.patch = Patch()
 
     def test_patch_attributes(self):
@@ -84,10 +86,10 @@ class TestPatch(unittest.TestCase):
         """
         self.assertEqual(self.patch._Patch__patch_id, 'CVE-1234')
         self.assertEqual(self.patch._Patch__cve, 'CVE-1234')
-        self.assertEqual(self.patch._Patch__date, '07-01-2024')
+        self.assertEqual(self.patch._Patch__date, '07/01/2024')
         self.assertEqual(self.patch._Patch__summary,
                          'Critical Security Fix')
-        self.assertEqual(self.patch._Patch__deadline, '07-01-2024')
+        self.assertEqual(self.patch._Patch__deadline, '07/07/2024')
 
     def test_calculate_deadline(self):
         """
@@ -97,7 +99,7 @@ class TestPatch(unittest.TestCase):
         6 months to the given creation_date.
         """
         deadline = self.patch.calculate_deadline()
-        self.assertEqual(deadline, "07-01-2024")
+        self.assertEqual(deadline, "07/07/2024")
 
 
 class TestCommandExecutor(unittest.TestCase):
