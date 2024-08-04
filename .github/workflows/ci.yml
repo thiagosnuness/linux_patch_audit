@@ -34,7 +34,7 @@ jobs:
           ls -la /dev
           ls -la /home
           ls -la /tmp
-          ls -la /usr
+          ls -la /usr/x86_64-suse-linux
           ls -la /mnt
           ls -la
           pytest test_suite.py
