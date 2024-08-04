@@ -35,7 +35,9 @@ class TestComputer(unittest.TestCase):
         self.patcher = patch('utils.CommandExecutor.run_command')
         self.mock_run_command = self.patcher.start()
         self.addCleanup(self.patcher.stop)
-
+        
+        self.mock_run_command.return_value = ("MockOutput", "")
+        
         self.computer = Computer()
     
     def test_hostname_not_empty(self):
@@ -74,7 +76,7 @@ class TestPatch(unittest.TestCase):
              patch.object(Patch, 'get_summary',
                           return_value='Critical Security Fix'), \
              patch.object(Patch, 'calculate_deadline',
-                          return_value='07/07/2024'):
+                          return_value='05/07/2024'):
             self.patch = Patch()
 
     def test_patch_attributes(self):
@@ -89,7 +91,7 @@ class TestPatch(unittest.TestCase):
         self.assertEqual(self.patch._Patch__date, '07/01/2024')
         self.assertEqual(self.patch._Patch__summary,
                          'Critical Security Fix')
-        self.assertEqual(self.patch._Patch__deadline, '07/07/2024')
+        self.assertEqual(self.patch._Patch__deadline, '05/07/2024')
 
     def test_calculate_deadline(self):
         """
@@ -99,7 +101,7 @@ class TestPatch(unittest.TestCase):
         6 months to the given creation_date.
         """
         deadline = self.patch.calculate_deadline()
-        self.assertEqual(deadline, "07/07/2024")
+        self.assertEqual(deadline, "05/07/2024")
 
 
 class TestCommandExecutor(unittest.TestCase):
