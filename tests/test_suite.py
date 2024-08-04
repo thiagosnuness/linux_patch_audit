@@ -68,11 +68,11 @@ class TestPatch(unittest.TestCase):
         """Set up a Patch instance for testing."""
         with patch.object(Patch, 'get_patch_id', return_value='CVE-1234'), \
              patch.object(Patch, 'get_cve', return_value='CVE-1234'), \
-             patch.object(Patch, 'get_date', return_value='2024-01-07'), \
+             patch.object(Patch, 'get_date', return_value='07-01-2024'), \
              patch.object(Patch, 'get_summary',
                           return_value='Critical Security Fix'), \
              patch.object(Patch, 'calculate_deadline',
-                          return_value='2024-07-01'):
+                          return_value='07-01-2024'):
             self.patch = Patch()
 
     def test_patch_attributes(self):
@@ -84,10 +84,10 @@ class TestPatch(unittest.TestCase):
         """
         self.assertEqual(self.patch._Patch__patch_id, 'CVE-1234')
         self.assertEqual(self.patch._Patch__cve, 'CVE-1234')
-        self.assertEqual(self.patch._Patch__date, '2024-01-07')
+        self.assertEqual(self.patch._Patch__date, '07-01-2024')
         self.assertEqual(self.patch._Patch__summary,
                          'Critical Security Fix')
-        self.assertEqual(self.patch._Patch__deadline, '2024-07-01')
+        self.assertEqual(self.patch._Patch__deadline, '07-01-2024')
 
     def test_calculate_deadline(self):
         """
@@ -97,7 +97,7 @@ class TestPatch(unittest.TestCase):
         6 months to the given creation_date.
         """
         deadline = self.patch.calculate_deadline()
-        self.assertEqual(deadline, "2024-07-01")
+        self.assertEqual(deadline, "07-01-2024")
 
 
 class TestCommandExecutor(unittest.TestCase):
