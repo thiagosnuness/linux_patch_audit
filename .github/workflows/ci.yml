@@ -26,25 +26,17 @@ jobs:
       with:
         image: opensuse/leap:latest
         options: --entrypoint "/bin/bash"
+        args: "-v ${{ github.workspace }}:/workspace"
         run: |
           zypper refresh
           zypper install -y python3 python3-pip
           python3 -m pip install --upgrade pip
           pip install pytest
-          ls -la /var/lib/docker
-          ls -la /usr/bin/docker
-          ls -la /dev
-          ls -la /home
-          ls -la /tmp
-          ls -la /usr/
-          ls -la /mnt
-          ls -la /github/workspace
-          ls -la
           echo "Current Directory:"
           pwd  # Mostra o diretório atual
           echo "Listing Files:"
-          ls -la  # Lista todos os arquivos e diretórios
-          echo "Listing Files in /github/workspace:"
-          ls -la /github/workspace
-          cd /github/workspace
+          ls -la /workspace
+          cd /workspace
+          echo "Listing Files After Changing Directory:"
+          ls -la
           pytest test_suite.py
