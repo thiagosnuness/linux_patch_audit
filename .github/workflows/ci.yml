@@ -24,6 +24,7 @@ jobs:
       with:
         image: opensuse/leap:latest
         options: --entrypoint "/bin/bash"
+        workdir: /github/workspace
         run: |
           zypper refresh
           zypper install -y python3 python3-pip
