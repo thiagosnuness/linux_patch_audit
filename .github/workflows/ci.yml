@@ -29,6 +29,8 @@ jobs:
           zypper install -y python3 python3-pip
           python3 -m pip install --upgrade pip
           pip install pytest
-          cd /home/runner/work/linux_patch_audit/linux_patch_audit
+          find / -type d -name linux_patch_audit
+          ls -la /home/runner/work/linux_patch_audit
+          cd /home/runner/work/linux_patch_audit
           ls -la
           pytest test_suite.py
